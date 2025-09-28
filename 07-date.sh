@@ -2,4 +2,4 @@
 
 DATE=$(date)
 
-echo "Timestatmp execuded: $DATE
+echo "Timestatmp execuded: $DATE"
