@@ -1,7 +1,4 @@
 #!/bin/bash
-year=$(date +%Y)
-month=$(date +%m)
-day=$(date +%d)
 
-ddmmyyyy=$(day-$month-$year)
+ddmmyyyy=$(date +%d-%m-%Y)
 echo "date month year dd-mm-yyyy $ddmmyyyy"
