@@ -1,8 +1,11 @@
 #!/bin/bash
 
 USERID=$(id -u)
-dnf remove mysql -y
-dnf remove nginx -y
-dnf remove mongodb -y
-dnf remove python3 -y
-dnf remove nodejs -y
+package=$@
+dnf list installed $package
+if [ $? -ne 0 ]; then
+    echo "Uninstalling $package"
+    dnf remove $package -y
+else
+    echo "$package not yet installed"
+fi
