@@ -1,11 +1,16 @@
 #!/bin/bash
 
 USERID=$(id -u)
-package=$@
-dnf list installed $package
+
+if [ $USERID -ne 0 ]; then
+    echo "ERROR: Please run the script with root previleges"
+    exit 1
+fi
+
+dnf remove mysql -y
+
 if [ $? -ne 0 ]; then
-    echo "Uninstalling $package"
-    dnf remove $package -y
-else
-    echo "$package not yet installed"
+    echo "Uninstalling MYSQL is failure"
+else   
+    echo "Uninstalling MYSQL is SUCCSS"
 fi
