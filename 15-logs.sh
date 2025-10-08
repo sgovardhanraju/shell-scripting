@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# 31m-RED, 32m-GREEN, 33m-YELLO, 0m-WHITE, 37m-WHITE(default)
-
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
@@ -9,6 +7,12 @@ W="\e[0m"
 
 USERID=$(id -u)
 
+LOGS_FOLDER="/var/log/shell-script"
+SCRIPT_NAME=$( echo $0 | cut -d "." -f1 )
+LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
+
+mkdir -p $LOGS_FOLDER
+echo "Script starting excuted at $(date)"
 if [ $USERID -ne 0 ]; then
     echo "ERROR::Please run the script with root privileges"
     exit 1
@@ -24,25 +28,25 @@ VALIDATE () { # functions receive inputs through args just like shell script arg
 
 }
 
-dnf list installed mysql
+dnf list installed mysql &>>$LOG_FILE
 if [ $? -ne 0 ]; then
-    dnf install mysql -y
+    dnf install mysql -y &>>$LOG_FILE
     VALIDATE $? "mysql"
 else
     echo -e "mysql already exist .....$Y SKIPPING...$N"
 fi
 
-dnf list installed nginx
+dnf list installed nginx &>>$LOG_FILE
 if [ $? -ne 0 ]; then
-    dnf install nginx -y
+    dnf install nginx -y &>>$LOG_FILE
     VALIDATE $? "nginx"
 else
     echo -e "nginx already exist ....$Y SKIPPING...$N"
 fi
 
-dnf list installed nodejs
+dnf list installed nodejs &>>$LOG_FILE
 if [ $? -ne 0 ]; then
-    dnf install nodejs -y
+    dnf install nodejs -y &>>$LOG_FILE
     VALIDATE $? "nodejs"
 else
     echo -e "nodejs already exists ....$Y SKIPPING...$N"
