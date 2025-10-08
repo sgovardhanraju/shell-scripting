@@ -46,3 +46,4 @@ if [ $? -ne 0 ]; then
     VALIDATE $? "nodejs"
 else
     echo -e "nodejs already exists ....$G SKIPPING...$N"
+fi
