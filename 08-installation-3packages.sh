@@ -1,6 +1,7 @@
 #!/bin/bash
 
 USERID=$(id -u)
+
 if [ $? -ne 0 ]; then
     echo "ERROR::Please run the script with root privileges"
     exit 1
